@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+ <form method="post">
+    {{ form.hidden_tag() }}
+    {{form.username.label}} {{form.username}}<br>
+    {{form.email.label}} {{form.email}}<br>
+    {{form.password.label}} {{form.password}}<br>
+    {{form.pass_confirm.label}} {{form.pass_confirm}}<br>
+    {% for subfield in form.user_type %}
+    <tr>
+    <td>{{ subfield }}</td>
+    <td>{{ subfield.label }}</td>
+    </tr>
+    <br>
+    {% endfor %}
+    {{form.submit()}}
+ </form>
+{% endblock %}

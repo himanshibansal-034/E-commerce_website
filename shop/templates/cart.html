@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+    <h1>Welcome {{user.username}} to your cart!!</h1>
+</div>
+<div class="container">
+    {% for product in cart %}
+        <table>
+          <tr>
+            <td>
+              <h2>{{product.prod.product_name}}</h2>
+              <p>You have {{product.quantity}} in cart</p>
+            </td>
+            <td>
+              <img align='center' src="{{ url_for('static', filename='product_pics/' + product.prod.product_image) }}">
+            </td>
+            <td>
+              <h6>Amount : {{ product.prod.price*product.quantity }}</h6>
+            </td>
+            <td>
+                <form method="post" action="{{ url_for('edit_cart', product_id=product.prod.id )}}">
+                  {{ qform.hidden_tag() }}
+                  {{ qform.quantity.label }}{{ qform.quantity() }}
+                  {{ qform.submit() }}
+                </form>
+              </td>
+          </tr>
+        </table>
+   {% endfor %}
+
+   <h3>Total Amount: {{total}}</h3>
+   <form action="{{ url_for('checkout')}}" method="post">
+    {{oform.hidden_tag() }}
+    {{oform.name.label}}{{oform.name()}}
+    {{oform.address.label}}{{oform.address()}}
+    {{oform.phone.label}}{{oform.phone()}}
+    {{oform.submit()}}
+
+  </form>
+</div>
+
+  {% endblock %}
